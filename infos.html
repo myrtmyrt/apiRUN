@@ -1,0 +1,36 @@
+</head>
+<body>
+<div>
+  <h1>Informations sur le serveur</h1>
+  <table>
+    <tr>
+      <th>Catégorie</th>
+      <th>Information</th>
+    </tr>
+    <tr>
+      <td>Adresse IP</td>
+      <td><?php echo $_SERVER['SERVER_ADDR']; ?></td>
+    </tr>
+    <tr>
+      <td>Nom de la machine</td>
+      <td><?php echo gethostname(); ?></td>
+    </tr>
+    <tr>
+      <td>Uptime</td>
+      <td><?php echo shell_exec('uptime -p'); ?></td>
+    </tr>
+    <tr>
+      <td>Distribution</td>
+      <td>Debian GNU</td>
+    </tr>
+    <tr>
+      <td>Version du noyau de Linux utilisée</td>
+      <td><?php echo shell_exec('uname -r'); ?></td>
+    </tr>
+    <tr>
+      <td>Taille de la mémoire RAM :)))) </td>
+      <td><?php echo shell_exec('df -h'); ?></td>
+    </tr>
+</body>
+</html>
+

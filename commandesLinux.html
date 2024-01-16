@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Les dix meilleurs commandes linux</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #DBEBC0;
+            padding: 10px;
+            text-align: center;
+        }
+
+
+        header h3 {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        header a {
+            text-decoration: none;
+            color: #000; /* Couleur du texte */
+        }
+
+        a:hover{
+            margin: 5px;
+            border: black;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1>Api RUN</h1>
+            <div>
+                <h3><a href="/jour1.html">Jour 1</a></h3>
+                <h3><a href="/jour2.html">Jour 2</a></h3>
+                <h3><a href="/jour2.html">Jour 3</a></h3>
+                <h3><a href="/jour2.html">Jour 4</a></h3>
+                <h3><a href="/jour2.html">Jour 5</a></h3>
+            </div>
+    </header>
+    </div>
+    <h1>Les 10 commandes Linux les plus importantes</h1>
+    <ol>
+        <li>Lister les Fichiers et Répertoires dans le Répertoire Actuel :  ls </li>
+        <li>            Changer de Répertoire : cd chemin/vers/le/dossier
+        </li>
+        <li>Copier un Fichier :  cp source destination</li>
+        <li> Déplacer ou Renommer un Fichier :  mv ancien_nom nouveau_nom</li>
+        <li> Afficher le Contenu d'un Fichier :  cat nom_du_fichier</li>
+        <li>Modifier un Fichier avec l'Éditeur de Texte Nano : nano nom_du_fichier</li>
+        <li>Supprimer un Fichier :  rm nom_du_fichier</li>
+        <li>Afficher l'Adresse IP de la Machine :  ip addr show</li>
+        <li>Installer un Paquet :  sudo apt-get install nom_du_paquet</li>
+        <li>Redémarrer la Machine :  sudo reboot</li>
+
+    </ol>
+
+    <?php
+
+        /** Connexion **/
+        $connexion = new PDO('pgsql:host=localhost;port=5432;dbname=postgres', 'customer', 'public');
+
+        /** Préparation et exécution de la requête **/
+        $sql = "SELECT nom, description FROM commandes";
+        $resultset = $connexion->prepare($sql);
+            $resultset->execute();
+
+            /** Traitement du résultat **/
+            echo "<catalogue>";
+                while ($row = $resultset->fetch(PDO::FETCH_ASSOC)) {
+                echo "<commmandes nom='" . $row['nom'] . "' description='" . $row['description'] . "'/>";
+                }
+                echo "</catalogue>";
+
+            /** Déconnexion **/
+            $connexion=null;
+
+    ?>
+</body>
+</html>
