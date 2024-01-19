@@ -22,7 +22,6 @@ Objectifs transversaux :
 * Savoir gérer les erreurs système (compréhension, analyse, recherche)
 
 
-
 ## Programme de l'API
 - Jour 1 : Hello Serveur : Linux/Debian (rappels), SSH, HTML, Serveur Web Ngnix (mono-site, sans domaine)
 - Jour 2 : Hello Web : Nom de domaine, Serveur multi-sites, PHP, PostgreSQL
@@ -30,7 +29,7 @@ Objectifs transversaux :
 - Jour 4 : Créer sa propre image Docker et Approfondir Ngnix, PHP, PostgreSQL, l'usage de conteneurs Docker
 - Jour 5 : Finalisation et documentation du projet
 
-### Installation Dokuwiki
+## Installation Dokuwiki
 
 On met à jour le système et on s'assure que le système est à jour :
 
