@@ -1,0 +1,32 @@
+version: '2'
+
+services:
+  conduit:
+    image: matrixconduit/matrix-conduit:latest
+    ports:
+      - "8080:6167"
+    volumes:
+      - db:/var/lib/matrix-conduit/
+    environment:
+      - CONDUIT_SERVER_NAME=chat.107.picagraine
+      - CONDUIT_DATABASE_BACKEND=rocksdb
+      - CONDUIT_ALLOW_REGISTRATION=true
+      - CONDUIT_ALLOW_FEDERATION=true
+      - CONDUIT_MAX_REQUEST_SIZE=20000000
+      - CONDUIT_TRUSTED_SERVERS=["matrix.org"]
+      - CONDUIT_MAX_CONCURRENT_REQUESTS=100
+      - CONDUIT_LOG=warn,rocket=off,_=off,sled=off
+
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    ports:
+      - "6769:80"
+    volumes:
+      - /vw-data/:/data/
+    restart: unless-stopped
+    environment:environment:
+      - ROCKET_DATABASES=postgresql://bitwarden:coucou@postgres-bitwarden/bitwarden
+
+volumes:
+  db:
