@@ -4,21 +4,31 @@
 
 - [Introduction](#introduction)
 - [Programme de l'API](#programme-de-lapi)
-- [Étape3](#etape3)
+- [Installation Dokuwiki](#installation-dokuwiki)
+- [Installation Conduit](#installation-conduit-)
+- [Installation Vaultwerden](#projet-vaultwarden)
 
 
 ## Introduction
+Objectif de l’Api : Découvrir l'administration de serveurs sous Linux et le fonctionnement de la technologie Docker
+
+Objectifs spécifiques :
+* Savoir utiliser un serveur sous Linux
+* Savoir installer et configurer un serveur web, un serveur PHP, un serveur PostgreSQL
+* Savoir utiliser la technologie de conteneurisation Docker
+
+Objectifs transversaux :
+* Savoir lire la documentation technique
+* Savoir gérer les erreurs système (compréhension, analyse, recherche)
+
+
 
 ## Programme de l'API
-- Jour 1 : 
-- Jour 2 : 
-- Jour 3 : 
-- Jour 4 : 
-- Jour 5 : 
-
-## Étape 3 : Hello Docker
-
-### Installation Nginx 
+- Jour 1 : Hello Serveur : Linux/Debian (rappels), SSH, HTML, Serveur Web Ngnix (mono-site, sans domaine)
+- Jour 2 : Hello Web : Nom de domaine, Serveur multi-sites, PHP, PostgreSQL
+- Jour 3 : Hello Docker : Principes de Docker (utiliser des images existantes)
+- Jour 4 : Créer sa propre image Docker et Approfondir Ngnix, PHP, PostgreSQL, l'usage de conteneurs Docker
+- Jour 5 : Finalisation et documentation du projet
 
 ### Installation Dokuwiki
 
@@ -104,8 +114,9 @@ sudo systemctl reload nginx
 Enfin on peut tester à cette adresse : https://dokuwiki.107.picagraine.net/
 
 
-## Projet : installation et hébergement du gestionnaire de mot de passe Vaultwarden
+## Projet Vaultwarden
 
+Le but du projet est d'installer et d'heberger un gestionnaire de mot de passe Vaultwwarden.
 Nous pour cela utilisé l'image Vaultwarden de Docker. À noter que nous aurions aussi pu faire un building binary en installant Vaultwarden de manière plus manuelle.
 
 Il a fallu effectuer ces différentes étapes : 
@@ -157,7 +168,9 @@ server {
 Le Vaultwarden est disponible à l'adresse suivante : https://chat.107.picagraine.net/
 J'ai du le passer sur chat afin qu'il soit certifié en HTTPS.
 
-## Installation de Conduit : 
+## Installation Conduit 
+
+* Récupérer l'image Matrix
 
 ```bash
 docker image pull docker.io/matrixconduit/matrix-conduit:latest
