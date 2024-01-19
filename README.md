@@ -115,12 +115,13 @@ Il a fallu effectuer ces différentes étapes :
 * Lancer le docker et se mettre sur un port non utilisé
 * Créer et lancer une base de données associés à Vaultwarden permettant de stocker les mots de passe.
 
+### Les commandes à lancer 
 ```bash
 docker pull vaultwarden/server:latest
 docker run -d --name vaultwarden -v /vw-data/:/data/ --restart unless-stopped -p 6769:80 -e ROCKET_DATABASES="{postgresql://bitwarden:coucou@postgres-bitwarden/bitwarden}" vaultwarden/server:latest
 
 ```
-
+### Le fichier de config /etc/nginx/sites-available/vaultwarden
 ```php
 server {
     server_name chat.107.picagraine.net;
@@ -152,4 +153,44 @@ server {
     return 404; # managed by Certbot
 }
 ```
+
+Le Vaultwarden est disponible à l'adresse suivante : https://chat.107.picagraine.net/
+J'ai du le passer sur chat afin qu'il soit certifié en HTTPS.
+
+## Installation de Conduit : 
+
+```bash
+docker image pull docker.io/matrixconduit/matrix-conduit:latest
+
+```
+
+* Ajouter cette partie de code dans dans /etc/nginx/nginx.conf dans http{} :
+
+```php
+proxy_headers_hash_max_size 1024;
+proxy_headers_hash_bucket_size 128;
+```
+
+* Ajouter cette paartie dans /etc/nginx/sites-available/chat juste en dessous de la ligne proxypass dans le location /
+
+```php
+proxy_set_header Host $host;
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header X-Forwarded-Proto $scheme;
+```
+
+* Commande pour lancer le docker : 
+```bash
+sudo docker run -d -p 8080:6167   -v db:/var/lib/matrix-conduit/   -e
+ CONDUIT_SERVER_NAME="chat.107.picagraine"   -e
+  CONDUIT_DATABASE_BACKEND="rocksdb"   -e
+   CONDUIT_ALLOW_REGISTRATION=true   -e
+    CONDUIT_ALLOW_FEDERATION=true   -e
+     CONDUIT_MAX_REQUEST_SIZE=20000000   -e
+      CONDUIT_TRUSTED_SERVERS="[\"matrix.org\"]"   -e
+       CONDUIT_MAX_CONCURRENT_REQUESTS="100"   -e
+        CONDUIT_LOG="warn,rocket=off,_=off,sled=off"   --name conduit matrixconduit/matrix-conduit:latest
+```
+
 
