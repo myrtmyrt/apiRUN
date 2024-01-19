@@ -128,8 +128,12 @@ Il a fallu effectuer ces différentes étapes :
 ```bash
 docker pull vaultwarden/server:latest
 docker run -d --name vaultwarden -v /vw-data/:/data/ --restart unless-stopped -p 6769:80 -e ROCKET_DATABASES="{postgresql://bitwarden:coucou@postgres-bitwarden/bitwarden}" vaultwarden/server:latest
-
 ```
+On peut aussi lancer avec un fichier docker-compose.yml et la commande suivante :
+```bash
+docker-compose up -d
+```
+
 ### Le fichier de config /etc/nginx/sites-available/vaultwarden
 ```php
 server {
@@ -203,4 +207,10 @@ sudo docker run -d -p 8080:6167   -v db:/var/lib/matrix-conduit/   -e
        CONDUIT_MAX_CONCURRENT_REQUESTS="100"   -e
         CONDUIT_LOG="warn,rocket=off,_=off,sled=off"   --name conduit matrixconduit/matrix-conduit:latest
 ```
-Le conduit n'est disponible en ligne car j'ai du utiliser son nom de domaine https pour mon gestionnaire de mot de passe. 
+
+On peut aussi lancer avec un fichier docker-compose.yml et la commande suivante :
+```bash
+docker-compose up -d
+```
+
+Le conduit est disponible à cette adresse : https://dokuwiki.107.picagraine.net/ 
