@@ -5,7 +5,7 @@
 - [Introduction](#introduction)
 - [Programme de l'API](#programme-de-lapi)
 - [Installation Dokuwiki](#installation-dokuwiki)
-- [Installation Conduit](#installation-conduit-)
+- [Installation Conduit](#installation-conduit)
 - [Installation Vaultwerden](#projet-vaultwarden)
 
 
@@ -112,7 +112,6 @@ sudo systemctl reload nginx
 
 Enfin on peut tester à cette adresse : https://dokuwiki.107.picagraine.net/
 
-
 ## Projet Vaultwarden
 
 Le but du projet est d'installer et d'heberger un gestionnaire de mot de passe Vaultwwarden.
@@ -204,5 +203,4 @@ sudo docker run -d -p 8080:6167   -v db:/var/lib/matrix-conduit/   -e
        CONDUIT_MAX_CONCURRENT_REQUESTS="100"   -e
         CONDUIT_LOG="warn,rocket=off,_=off,sled=off"   --name conduit matrixconduit/matrix-conduit:latest
 ```
-
-
+Le conduit n'est disponible en ligne car j'ai du utiliser son nom de domaine https pour mon gestionnaire de mot de passe. 
