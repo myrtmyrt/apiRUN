@@ -77,15 +77,13 @@ sudo service nginx restart
 sudo service php8.2-fpm restart 
 ```
 
-
-On teéléchage Téléchargement de DokuWiki :
-Accédez au répertoire où vous souhaitez installer DokuWiki.
+On accéde au répertoire où on veut installer DokuWiki.
 
 ```bash
 cd /var/www/
 ```
 
-Téléchargez l'archive DokuWiki et extrayez-la.
+On télécharge l'archive DokuWiki et on l'extraye.
 
 ```bash
 sudo wget https://download.dokuwiki.org/src/dokuwiki/dokuwiki-stable.tgz
@@ -106,16 +104,52 @@ sudo systemctl reload nginx
 Enfin on peut tester à cette adresse : https://dokuwiki.107.picagraine.net/
 
 
+## Projet : installation et hébergement du gestionnaire de mot de passe Vaultwarden
 
+Nous pour cela utilisé l'image Vaultwarden de Docker. À noter que nous aurions aussi pu faire un building binary en installant Vaultwarden de manière plus manuelle.
 
-
-1. Clone le repository:
+Il a fallu effectuer ces différentes étapes : 
+* Télécharger le docker 
+* Paramétrer le proxy inverse et le /etc/nginx/sites-available/vaultwarden
+* Créer un lien symbolique entre /etc/nginx/sites-available/vaultwarden et  /etc/nginx/sites-enabled/vaultwarden
+* Lancer le docker et se mettre sur un port non utilisé
+* Créer et lancer une base de données associés à Vaultwarden permettant de stocker les mots de passe.
 
 ```bash
-git https://gitlab.utc.fr/simde/bobby.git
+docker pull vaultwarden/server:latest
+docker run -d --name vaultwarden -v /vw-data/:/data/ --restart unless-stopped -p 6769:80 -e ROCKET_DATABASES="{postgresql://bitwarden:coucou@postgres-bitwarden/bitwarden}" vaultwarden/server:latest
+
 ```
 
-2. Lancer l'application en local :
+```php
+server {
+    server_name chat.107.picagraine.net;
+    location / {
+        proxy_pass http://localhost:6769;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/chat.107.picagraine.net/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/chat.107.picagraine.net/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
 
 
+server {
+    if ($host = chat.107.picagraine.net) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80;
+    server_name chat.107.picagraine.net;
+    return 404; # managed by Certbot
+}
+```
 
