@@ -110,7 +110,7 @@ sudo certbot
 sudo systemctl reload nginx
 ```
 
-Enfin on peut tester à cette adresse : https://dokuwiki.107.picagraine.net/
+Enfin on peut tester à cette adresse : https://wiki.107.picagraine.net/
 
 ## Projet Vaultwarden
 
